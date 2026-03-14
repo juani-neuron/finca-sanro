@@ -27,8 +27,8 @@ export function TopBar() {
           <Image
             src="/logo.avif"
             alt="Finca Sanro"
-            width={36}
-            height={36}
+            width={56}
+            height={56}
             className="object-contain"
           />
           <span className="font-serif text-base font-bold text-gold tracking-wide">FINCA SANRO</span>
