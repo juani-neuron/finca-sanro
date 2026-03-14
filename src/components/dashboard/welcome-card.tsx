@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { useCalendar } from '@/hooks/useCalendar';
+import { useStaff } from '@/hooks/useStaff';
 import { CalendarEvent } from '@/types';
 
 function getGreeting(): string {
@@ -33,11 +35,24 @@ export function WelcomeCard() {
   });
 
   const { events, overdue } = useCalendar();
+  const { staff } = useStaff();
   const todayStr = new Date().toISOString().split('T')[0];
   const todayEvents = events.filter(
     (e) => e.date === todayStr && e.status === 'scheduled'
   );
   const tasks: CalendarEvent[] = [...overdue, ...todayEvents];
+
+  const [sentReminders, setSentReminders] = useState<Set<string>>(new Set());
+
+  const getStaffName = (staffId?: string) => {
+    if (!staffId) return 'Sin asignar';
+    const member = staff.find((m) => m.id === staffId);
+    return member ? member.name : 'Sin asignar';
+  };
+
+  const handleSendReminder = (taskId: string) => {
+    setSentReminders((prev) => new Set(prev).add(taskId));
+  };
 
   return (
     <Card hover={false}>
@@ -63,25 +78,50 @@ export function WelcomeCard() {
 
       <div className="px-5 pb-5 border-t border-border-subtle pt-3 mt-1">
         <p className="text-xs font-medium text-text-secondary mb-2">
-          Estas son tus tareas para hoy:
+          Tu equipo tiene estas tareas pendientes:
         </p>
         {tasks.length > 0 ? (
-          <ul className="space-y-1.5">
-            {tasks.map((task) => (
-              <li key={task.id} className="flex items-center gap-2 text-xs">
-                <span>{eventTypeIcons[task.type] || '📋'}</span>
-                <span className="text-text-primary truncate">{task.title}</span>
-                {task.status === 'overdue' && (
-                  <span className="text-red-400 text-[10px] font-medium ml-auto flex-shrink-0">
-                    Atrasada
-                  </span>
-                )}
-              </li>
-            ))}
+          <ul className="space-y-2.5">
+            {tasks.map((task) => {
+              const staffName = getStaffName(task.staffId);
+              const isSent = sentReminders.has(task.id);
+
+              return (
+                <li key={task.id} className="flex items-start gap-2 text-xs">
+                  <span className="mt-0.5">{eventTypeIcons[task.type] || '📋'}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-text-primary truncate">{task.title}</span>
+                      {task.status === 'overdue' && (
+                        <span className="text-red-400 text-[10px] font-medium flex-shrink-0">
+                          Atrasada
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between mt-1 gap-2">
+                      <span className="text-text-muted text-[11px] truncate">
+                        Encargado: {staffName}
+                      </span>
+                      <button
+                        onClick={() => handleSendReminder(task.id)}
+                        disabled={isSent}
+                        className={`flex-shrink-0 text-[10px] font-medium px-2 py-0.5 rounded transition-all duration-300 ${
+                          isSent
+                            ? 'bg-green-500/10 text-green-400 border border-green-500/20 cursor-default'
+                            : 'bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 cursor-pointer'
+                        }`}
+                      >
+                        {isSent ? 'Enviado ✓' : 'Manda reminder'}
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p className="text-xs text-text-muted">
-            No hay tareas programadas para hoy
+            No hay tareas pendientes para hoy
           </p>
         )}
       </div>
