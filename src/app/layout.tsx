@@ -26,9 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${playfair.variable} ${dmSans.variable} font-sans antialiased`}
+        suppressHydrationWarning
       >
         <AppShell>{children}</AppShell>
       </body>

@@ -7,9 +7,11 @@ import { TopBar } from './top-bar';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Auto-collapse sidebar on tablet
   useEffect(() => {
+    setMounted(true);
     const mql = window.matchMedia('(min-width: 1024px)');
     const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
       setCollapsed(!e.matches);
@@ -19,6 +21,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     return () => mql.removeEventListener('change', handleChange);
   }, []);
 
+  const sidebarWidth = collapsed ? '64px' : '220px';
+
   return (
     <div className="min-h-screen bg-bg">
       <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
@@ -26,12 +30,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* Main content - offset by sidebar width */}
       <div
-        className="flex flex-col min-h-screen transition-[margin] duration-200 ease-in-out md:ml-16 lg:ml-0"
-        style={{ marginLeft: undefined }}
+        className="flex flex-col min-h-screen transition-[margin] duration-200 ease-in-out"
+        style={{
+          marginLeft: mounted ? undefined : 0,
+        }}
       >
         <style jsx>{`
           @media (min-width: 768px) {
-            div { margin-left: ${collapsed ? '64px' : '220px'} !important; }
+            div { margin-left: ${sidebarWidth} !important; }
           }
           @media (max-width: 767px) {
             div { margin-left: 0 !important; }
