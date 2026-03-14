@@ -18,6 +18,18 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Finca Sanro — Equestrian Management",
   description: "Sistema de gestión ecuestre premium para Finca Sanro",
+  openGraph: {
+    title: "Finca Sanro",
+    description: "Sistema de gestión ecuestre premium para Finca Sanro",
+    siteName: "Finca Sanro",
+    locale: "es_MX",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Finca Sanro",
+    description: "Sistema de gestión ecuestre premium para Finca Sanro",
+  },
 };
 
 export default function RootLayout({
