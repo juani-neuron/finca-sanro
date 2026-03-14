@@ -50,6 +50,7 @@ Only build the Super Admin view (full access). Other roles (admin, trainer, care
 | `/caballos` | Horse inventory (grid/list with filters) |
 | `/caballos/[id]` | Individual horse record (8 tabs) |
 | `/maquila` | Breeding/reproduction pipeline |
+| `/alimentacion` | Feed inventory, purchases, consumption plans |
 | `/calendario` | Calendar (monthly/weekly views) |
 | `/personal` | Staff management |
 | `/competencias` | Competition history |

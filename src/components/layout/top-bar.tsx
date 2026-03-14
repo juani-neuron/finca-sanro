@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { Search, Bell } from 'lucide-react';
 import { navItems } from '@/lib/navigation';
+import Image from 'next/image';
 
 function getPageTitle(pathname: string): string {
   if (pathname === '/') return 'Dashboard';
@@ -17,7 +18,22 @@ export function TopBar() {
 
   return (
     <header className="flex items-center justify-between h-16 px-4 lg:px-6 border-b border-border bg-bg/80 backdrop-blur-sm sticky top-0 z-30">
-      <h1 className="text-lg font-semibold text-text-primary">{title}</h1>
+      {/* Desktop: page title */}
+      <h1 className="hidden md:block text-lg font-semibold text-text-primary">{title}</h1>
+
+      {/* Mobile: centered logo */}
+      <div className="flex md:hidden items-center justify-center flex-1">
+        <div className="flex items-center gap-2.5">
+          <Image
+            src="/logo.avif"
+            alt="Finca Sanro"
+            width={36}
+            height={36}
+            className="object-contain"
+          />
+          <span className="font-serif text-base font-bold text-gold tracking-wide">FINCA SANRO</span>
+        </div>
+      </div>
 
       <div className="flex items-center gap-3">
         {/* Search */}

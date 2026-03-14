@@ -340,3 +340,47 @@ export interface FinancialRecord {
   horseId?: string;
   description: string;
 }
+
+// ===== FEED / ALIMENTACIÓN =====
+
+export type FeedType = 'alfalfa' | 'hay' | 'concentrate' | 'supplement';
+
+export type FeedStockStatus = 'ok' | 'low' | 'critical' | 'out';
+
+export interface FeedProduct {
+  id: string;
+  name: string;
+  type: FeedType;
+  unit: 'kg' | 'pacas' | 'bultos';
+}
+
+export interface FeedPurchase {
+  id: string;
+  productId: string;
+  date: string;
+  quantity: number;
+  unitPrice: number;
+  totalPrice: number;
+  currency: 'MXN';
+  supplier: string;
+  notes?: string;
+}
+
+export interface FeedInventory {
+  productId: string;
+  currentStock: number;
+  dailyConsumption: number;
+  minimumStock: number;
+  lastPurchaseDate: string;
+  lastPurchasePrice: number;
+}
+
+export interface FeedPlan {
+  horseId: string;
+  items: {
+    productId: string;
+    dailyAmount: number;
+    unit: string;
+    schedule: string;
+  }[];
+}

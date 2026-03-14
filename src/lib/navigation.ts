@@ -7,6 +7,7 @@ import {
   Trophy,
   DollarSign,
   Settings,
+  Wheat,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -22,6 +23,7 @@ export const navItems: NavItem[] = [
   { id: 'dashboard', label: 'Dashboard', href: '/', icon: LayoutDashboard, phase: 3 },
   { id: 'caballos', label: 'Caballos', href: '/caballos', icon: Crown, phase: 4 },
   { id: 'maquila', label: 'Maquila', href: '/maquila', icon: Baby, phase: 5 },
+  { id: 'alimentacion', label: 'Alimentación', href: '/alimentacion', icon: Wheat, phase: 7 },
   { id: 'calendario', label: 'Calendario', href: '/calendario', icon: Calendar, phase: 6 },
   { id: 'personal', label: 'Personal', href: '/personal', icon: Users, phase: 7 },
   { id: 'competencias', label: 'Competencias', href: '/competencias', icon: Trophy, phase: 7 },

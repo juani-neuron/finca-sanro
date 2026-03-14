@@ -568,6 +568,17 @@ DM Sans (sans-serif):
 - **Todas las páginas** usan motion.div, SectionLabel, GoldDivider, patrón consistente con fases anteriores
 - Build: 0 errores, 12 páginas generadas
 
+### Módulo Adicional: Alimentación ✅ COMPLETADA (2026-03-13)
+- **Ruta:** `/alimentacion` con entrada en navegación (icono Wheat)
+- **Data layer:** Tipos (`FeedProduct`, `FeedPurchase`, `FeedInventory`, `FeedPlan`, `FeedStockStatus`), datos dummy (`src/data/feed.ts` — 8 productos, 15 compras, 8 inventarios, 4 planes de alimentación por semental), hook (`src/hooks/useFeed.ts`)
+- **Componentes:** 4 (`feed-kpis.tsx`, `inventory-table.tsx`, `purchase-history.tsx`, `feed-plans.tsx`)
+- **KPIs:** Productos en inventario, días promedio de stock, costo diario, total invertido
+- **Inventario:** Tabla con stock actual, consumo diario, días restantes, precio unitario, costo/día, status badges (Abastecido/Por acabarse/Crítico/Agotado)
+- **Planes:** Plan de alimentación detallado por caballo con horarios y cantidades
+- **Compras:** Historial agrupado por mes con proveedor, notas, precio unitario
+- **Precios realistas MX:** Alfalfa $110-120/paca, Concentrado $500-520/bulto, Heno $80-85/paca
+- Build: 0 errores, 13 páginas generadas
+
 ---
 
 ## 9. DATOS REALES DE FINCA SANRO
